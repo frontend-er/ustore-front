@@ -18,11 +18,15 @@ import Basket from './pages/Basket';
 const App: FC = () => {
 
   const location = useLocation();
-  const { user } = useContext(Context);
+  const { user, courseBasket } = useContext(Context);
+
+
 
   useEffect(() => {
-    user.checkAuth()
-  })
+    user.checkAuth();
+  }, [])
+
+
 
 
   return (

@@ -14,6 +14,7 @@ import BasketService from '../services/BasketService';
 import { IBasket } from '../models/response/IBasket';
 import CartEmpty from '../assets/CartEmpty/EmptyCart.png'
 import close from '../assets/CartEmpty/close.png'
+import { useHistory } from 'react-router';
 
 
 
@@ -84,7 +85,7 @@ const useStyles = makeStyles(theme => ({
 
 const EmptyCart = observer(() => {
    const classes = useStyles()
-
+   const history = useHistory();
    return <div className={classes.emptyCartHolder}>
       <img src={CartEmpty} alt="..." className={classes.emptyCartPhoto} />
       <div className={classes.emptyCartTitle}>
@@ -95,7 +96,7 @@ const EmptyCart = observer(() => {
          Maybe you should <b style={{ textDecoration: 'underline' }}> come back and have another look at our products! </b>
       </div>
       <div>
-         <Button variant="contained" style={{ background: '#000', color: '#fff', marginBottom: 40 }} > Вернуться назад </Button>
+         <Button onClick={() => history.goBack()} variant="contained" style={{ background: '#000', color: '#fff', marginBottom: 40 }} > Вернуться назад </Button>
       </div>
 
    </div>
@@ -104,18 +105,7 @@ const EmptyCart = observer(() => {
 
 
 
-const ProductCart = observer(({ basket }) => {
-   const classes = useStyles()
-   const { courseBasket } = useContext(Context);
-
-   const handleRemove = async (courseId, basketId) => {
-      try {
-         console.log(courseId, basketId)
-         await courseBasket.emptyBasket(courseId, basketId);
-      } catch (error) {
-         console.log(error)
-      }
-   }
+const ProductCart = observer(({ basket, handleRemove }) => {
 
    return <div>
       <Row>
@@ -131,7 +121,7 @@ const ProductCart = observer(({ basket }) => {
                   </tr>
                </thead>
                <tbody>
-                  {
+                  {basket &&
                      basket.map((t) => {
                         return <tr key={t.id}>
                            <td>
@@ -144,7 +134,7 @@ const ProductCart = observer(({ basket }) => {
                            </td>
                            <td>{t.unit}</td>
                            <td>{t.poductPrice}</td>
-                           <td ><Button type="button" onClick={() => handleRemove(t.courseId, t.basketId)}>x</Button></td>
+                           <td ><Button type="button" onClick={() => handleRemove(t.id)}>x</Button></td>
                         </tr>
                      })
                   }
@@ -166,17 +156,20 @@ const BasketHolder = observer(() => {
    const { user, courseBasket } = useContext(Context);
    const [basket, setBasket] = useState([]);
    const [loading, setLoading] = useState(false);
-
+   const [, updateState] = React.useState();
+   const forceUpdate = React.useCallback(() => updateState({}), []);
+   const history = useHistory();
 
 
    useEffect(async () => {
       setLoading(true)
       try {
-         await user.setUser()
-         if (user.user.id) {
-            await courseBasket.getBasket(user.user.id)
+         const id = await user.getUserId()
+         if (id) {
+            await courseBasket.getBasket(id)
          }
-         setBasket(courseBasket.basket)
+         const candidate = courseBasket.getBasketActual()
+         setBasket(candidate)
          setLoading(false)
       } catch (error) {
          console.log(error)
@@ -187,14 +180,29 @@ const BasketHolder = observer(() => {
    }, [courseBasket, user]);
 
 
-
+   const handleRemove = async (id) => {
+      try {
+         console.log(id)
+         await courseBasket.emptyBasket(id);
+         const idUser = await user.getUserId()
+         if (idUser) {
+            await courseBasket.getBasket(idUser)
+         }
+         const candidate = courseBasket.getBasketActual()
+         setBasket(candidate);
+         console.log(candidate);
+         console.log(basket);
+         forceUpdate()
+      } catch (error) {
+         console.log(error)
+      }
+   }
 
 
    if (loading) {
       return <div>
          loading
       </div>
-
    }
 
 
@@ -207,7 +215,7 @@ const BasketHolder = observer(() => {
                      Your cart
                   </Col>
                   <Col xs={1} className={classes.closeRowTop}>
-                     <img src={close} alt="" />
+                     <Button type="button" varian="outlined" onClick={() => history.goBack()}> <img src={close} alt="" /> </Button>
                   </Col>
                </Row>
             </Container>
@@ -215,7 +223,7 @@ const BasketHolder = observer(() => {
          <div className={classes.bodyCart}>
             <Container fluid="xl" >
                {
-                  (basket.length === 0) ? <EmptyCart /> : <ProductCart basket={basket} />
+                  (basket.length === 0 || basket === undefined) ? <EmptyCart /> : <ProductCart handleRemove={handleRemove} basket={basket} />
                }
             </Container>
          </div>

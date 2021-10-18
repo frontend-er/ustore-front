@@ -1,6 +1,6 @@
 //@ts-nocheck
 
-import React, { useContext, Component, Fragment } from 'react';
+import React, { useContext, Component, Fragment, useEffect, useState } from 'react';
 import { Context } from '..';
 import { Button, makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
@@ -29,11 +29,21 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function Home() {
-
+const Home = observer(() => {
    const classes = useStyles()
-   const { course } = useContext(Context);
-   const { user } = useContext(Context);
+   const { user, courseBasket } = useContext(Context);
+   const [userId, setUserId] = useState(0);
+   const [basket, setBasket] = useState([]);
+
+
+   useEffect(async () => {
+      setUserId(user.getUserId());
+      const candidate = await courseBasket.getBasket(userId.id)
+      console.log(candidate)
+      setBasket(candidate)
+   }, [])
+
+   console.log(basket)
 
 
    return (
@@ -50,9 +60,9 @@ function Home() {
 
 
    );
-}
+})
 
 
+export default Home;
 
 
-export default observer(Home);

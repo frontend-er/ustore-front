@@ -7,6 +7,7 @@ import { API_URL } from "../http";
 import { IUser } from "../models/response/IUser";
 import { IBasket } from "../models/response/IBasket";
 import BasketService from "../services/BasketService";
+import { IBasketCourse } from "../models/response/IBasketCourse";
 
 export default class CourseBasket {
    basket = {} as IBasket;
@@ -29,10 +30,25 @@ export default class CourseBasket {
       }
    }
 
+   getBasketActual() {
+      return this.basket
+   }
 
-   async emptyBasket(courseId: number, basketId: number) {
+
+
+   async emptyBasket(id: number) {
       try {
-         await BasketService.removeItem(courseId, basketId);
+         await BasketService.removeItem(id);
+      } catch (error) {
+         console.log(error)
+      }
+   }
+
+
+   async addToBasket(data: IBasketCourse) {
+      try {
+         const responce = await BasketService.addItem(data);
+         this.setBasket(responce.data)
       } catch (error) {
          console.log(error)
       }

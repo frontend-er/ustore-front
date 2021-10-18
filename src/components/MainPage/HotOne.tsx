@@ -48,8 +48,7 @@ function HotOne() {
          <Row >
             <Col >
                <div>
-                  <OneCourse id={1} title='“Как восстанавливать
-                        разрушенное”' bgColor='#E1D3E6' label="Urban PAS" lector='Iulia Ubeivolk' positionLector="Психолог, арт-терапевт" tags='psychology' price={100} imgLector={IUbeivolk} img={ReuserBroken} description="Курс, для тех, кто работает с людьми и помогает им восстанавливаться от нанесенных ударов судьбы, кто нуждается в инструментах и практических советах в этом труде." accentColor='#8741A2' />
+                  <OneCourse id={4} title='“Как восстанавливать разрушенное”' bgColor='#E1D3E6' label="Urban PAS" lector='Iulia Ubeivolk' positionLector="Психолог, арт-терапевт" tags='psychology' price={100} imgLector={IUbeivolk} img={ReuserBroken} description="Курс, для тех, кто работает с людьми и помогает им восстанавливаться от нанесенных ударов судьбы, кто нуждается в инструментах и практических советах в этом труде." accentColor='#8741A2' />
 
                </div>
             </Col>

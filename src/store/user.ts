@@ -23,6 +23,10 @@ export default class User {
       this.user = user;
    }
 
+   getUserId() {
+      return this.user.id;
+   }
+
    setLoading(bool: boolean) {
       this.isLoading = bool;
    }

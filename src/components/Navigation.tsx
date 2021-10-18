@@ -27,7 +27,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import { motion } from 'framer-motion';
-
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(theme => ({
    root: {
@@ -278,6 +278,16 @@ function Navigation() {
                      Войти
                   </Button>
                </div> : <div>
+                  <Button variant="text" color="default" className={classes.buttonLogin} component={RouterLink} to="/basket">
+                     <Hidden mdDown>
+                        Корзина
+                     </Hidden>
+                     <Hidden lgUp>
+                        <div>
+                           <FontAwesomeIcon icon={faCartPlus} className={classes.callIconMini} />
+                        </div>
+                     </Hidden>
+                  </Button>
                   <Button variant="text" color="default" className={classes.buttonLogin} component={RouterLink} to="/cabinet">
                      <Hidden mdDown>
                         В кабинет

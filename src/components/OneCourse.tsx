@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { NavLink } from 'react-router-dom';
 import Redirect, { useHistory } from 'react-router'
+import { observer } from 'mobx-react';
+import { Context } from '..';
 
 const useStyles = makeStyles({
    root: {
@@ -96,12 +98,21 @@ interface IOneCourse {
 
 function OneCourse(props: IOneCourse) {
 
+   const { user, courseBasket } = useContext(Context);
 
    const classes = useStyles();
    let history = useHistory();
 
    const redirect = () => {
       history.push(`/course/${props.id}`)
+   }
+
+   const handleAddToCart = async () => {
+      try {
+         await courseBasket.addToBasket({ courseId: props.id, basketId: user.user.id, productDescription: props.description, productTitle: props.title, poductPrice: props.price, unit: props.label })
+      } catch (error) {
+         console.log(error)
+      }
    }
 
 
@@ -157,7 +168,7 @@ function OneCourse(props: IOneCourse) {
                </NavLink>
 
 
-               <Button fullWidth variant='contained' style={{ color: '#fff', backgroundColor: props.accentColor, margin: 10 }}>
+               <Button onClick={handleAddToCart} fullWidth variant='contained' style={{ color: '#fff', backgroundColor: props.accentColor, margin: 10 }}>
                   В корзину +
                </Button>
             </CardActions>
@@ -166,4 +177,4 @@ function OneCourse(props: IOneCourse) {
    );
 }
 
-export default OneCourse;
+export default observer(OneCourse);
