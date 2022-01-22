@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
    },
 
    holderLectors: {
-      paddingTop: 220
+      paddingTop: 180
    },
 
    lectorsText: {
@@ -144,7 +144,7 @@ function LeaderCourseDescription({ name, workPosirion, description, quote, inPro
                <Col xl={4}>
                   <div >
                      <div style={{ textAlign: 'center', marginBottom: 30, marginTop: 30 }}>
-                        <img src={photoUrl} alt={name} />
+                        <img src={photoUrl} alt={name} style={{ width: 327.19, height: 327.19 }} />
                      </div>
 
                      <div className={classes.quoteHolder}>

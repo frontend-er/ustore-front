@@ -225,52 +225,41 @@ function Navigation() {
    return (
       <nav id="menu" className={classes.linksSide}>
          <div>
-            <Link href={dudUrl} className={classes.linkSide}>
+            <Link component={RouterLink} to="/about" className={classes.linkSide}>
                О нас
             </Link>
          </div>
          <div>
-
-            <Link href={dudUrl} className={classes.linkSide}>
-               Лекторы
-            </Link>
-         </div>
-         <div>
-
-            <Link href={dudUrl} className={classes.linkSide}>
+            <Link component={RouterLink} to="/kids" className={classes.linkSide}>
                Kids
             </Link>
          </div>
          <div>
-
-            <Link href={dudUrl} className={classes.linkSide}>
+            <Link component={RouterLink} to="/teens" className={classes.linkSide}>
                Teens
             </Link>
          </div>
          <div>
-
-            <Link href={dudUrl} className={classes.linkSide}>
+            <Link component={RouterLink} to="/youth" className={classes.linkSide}>
                Youth
             </Link>
          </div>
          <div>
-
-            <Link href={dudUrl} className={classes.linkSide}>
+            <Link component={RouterLink} to="/show" className={classes.linkSide}>
                Show
             </Link>
          </div>
          <div>
-
-            <Link href={dudUrl} className={classes.linkSide}>
+            <Link component={RouterLink} to="/therapy" className={classes.linkSide}>
                Art-Therapy
             </Link>
          </div>
          <div>
-
-            <Link href={dudUrl} className={classes.linkSide}>
+            <Link component={RouterLink} to="/event" className={classes.linkSide}>
                Event-Lab
             </Link>
          </div>
+
          <div className={classes.buttonsSide}>
             {
                (!user.isAuth) ? <div>

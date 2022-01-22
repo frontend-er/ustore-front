@@ -3,8 +3,7 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { TextField, Button, Paper, FormControlLabel, Checkbox, makeStyles, Hidden } from '@material-ui/core';
-import burger from '../assets//MainPage/mainPhoto.png';
-
+import burger from '../assets/MainPage/mainPhoto.png';
 
 
 
@@ -37,9 +36,7 @@ function MainView() {
 
    const classes = useStyles()
    return (
-
-
-      <Container fluid="xl">
+      <Container fluid="xl" style={{ marginTop: 100 }}>
          <Row>
             <Col>
                <div className={classes.titlePage}>
@@ -68,8 +65,11 @@ function MainView() {
                </Button>
 
                <Button variant="text" color="primary" className={classes.buttonMain}>
-                  Выбрать видеокурс
+                  Видеокурсы
                </Button>
+            </Col>
+            <Col xl={1} >
+
             </Col>
 
             <Hidden smDown>
@@ -83,6 +83,7 @@ function MainView() {
                </Col>
             </Hidden>
          </Row>
+
       </Container >
 
    );

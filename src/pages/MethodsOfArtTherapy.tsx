@@ -2,7 +2,7 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { observer } from "mobx-react-lite";
 import { Context } from '..';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Button } from '@material-ui/core';
+import { Button, Snackbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import background from "../assets/CoursesMax/ArtTherapy/RestorationBroken/bgRestorationBroken.png";
 import bgpage from "../assets/CoursesMax/ArtTherapy/RestorationBroken/bgpage.png";
@@ -14,7 +14,9 @@ import block3 from "../assets/CoursesMax/ArtTherapy/RestorationBroken/block3.png
 import block4 from "../assets/CoursesMax/ArtTherapy/RestorationBroken/block4.png";
 import block5 from "../assets/CoursesMax/ArtTherapy/RestorationBroken/block5.png";
 import block1 from "../assets/CoursesMax/ArtTherapy/RestorationBroken/block1.png";
+import global from "../assets/CoursesMax/ArtTherapy/RestorationBroken/global.png";
 
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import smallItem from "../assets/CoursesMax/ArtTherapy/RestorationBroken/smalItem.png";
 import leaderPhoto from "../assets/CoursesMax/ArtTherapy/RestorationBroken/YuliaUbeivolk.png";
 import Header from '../components/Header';
@@ -23,6 +25,7 @@ import LeaderCourseDescription from '../components/LeaderCourseDescription';
 import FeedBackSection from '../components/FeedBackSection';
 import CoursePlan from '../components/CoursePlan';
 import { motion } from 'framer-motion';
+
 
 const useStyles = makeStyles(theme => ({
    root: {
@@ -39,7 +42,7 @@ const useStyles = makeStyles(theme => ({
       border: '1px solid #FFFFFF',
       borderRadius: 42,
       textAlign: 'center',
-      marginTop: 60
+      marginTop: 120
    },
    label: {
       fontWight: 'bold',
@@ -263,6 +266,20 @@ const useStyles = makeStyles(theme => ({
       fontSize: 18,
       marginLeft: 20,
       fontWeight: 400
+   },
+
+   titleDecoretedText: {
+      fontSize: 24,
+      fontWeight: 400,
+      color: '#fff',
+      textDecoration: 'underline',
+      textTransform: 'uppercase'
+   },
+
+   titlePrice: {
+      fontSize: 52,
+      fontWeight: 900,
+      color: '#fff'
    }
 
 
@@ -372,17 +389,61 @@ const plan = [{
 
 
 
+export interface ICourse {
+   id: number,
+   title: string,
+   price: number,
+
+   description?: string,
+   label: string,
+}
 
 
+const MethodsOfArtTherapy = (props: ICourse) => {
+   const classes = useStyles();
+   const { user, courseBasket } = useContext(Context);
+   const [open, setOpen] = React.useState(false);
+   const [openError, setOpenError] = React.useState(false);
 
-const RestoreBrokenCourse: FC = () => {
-   const classes = useStyles()
-   const { user } = useContext(Context);
+   //useEffect(() => {
+   //   window.scrollTo(0, 0);
+   //}, []);
 
 
-   useEffect(() => {
-      window.scrollTo(0, 0);
-   }, []);
+   const handleClick = () => {
+      setOpen(true);
+   };
+
+   const handleClickError = () => {
+      setOpenError(true);
+   };
+
+   const handleAddToCart = async () => {
+      await courseBasket.addToBasket({ courseId: props.id, basketId: user.user.id, productDescription: props.description, productTitle: props.title, poductPrice: props.price, unit: props.label });
+      handleClick()
+   }
+
+   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+      if (reason === 'clickaway') {
+         return;
+      }
+      setOpen(false);
+   };
+
+   const handleCloseError = (event?: React.SyntheticEvent, reason?: string) => {
+      if (reason === 'clickaway') {
+         return;
+      }
+      setOpenError(false);
+   };
+
+
+   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+      props,
+      ref,
+   ) {
+      return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+   });
 
 
 
@@ -392,7 +453,7 @@ const RestoreBrokenCourse: FC = () => {
             <div className={classes.root}>
                <Header />
                <div className={classes.header}>
-                  <Container fluid="xxl">
+                  <Container fluid="xxl" >
                      <Row >
                         <Col>
                            <div className={classes.holder}>
@@ -431,7 +492,7 @@ const RestoreBrokenCourse: FC = () => {
                                     </Row>
                                     <Row >
                                        <Col sm={3} style={{ marginBottom: 100 }}>
-                                          <Button fullWidth variant='contained' style={{ color: '#fff', backgroundColor: '#8741A2', margin: 10 }}>
+                                          <Button fullWidth onClick={handleAddToCart} variant='contained' style={{ color: '#fff', backgroundColor: '#8741A2', margin: 10 }}>
                                              Купить курс
                                           </Button>
                                        </Col>
@@ -708,6 +769,40 @@ const RestoreBrokenCourse: FC = () => {
                      )
                   }
 
+                  <Row style={{ marginBottom: 150, marginTop: 50 }}>
+                     <Col>
+                        <div style={{ textAlign: 'left' }}>
+                           <div className={classes.titleSection} style={{ textAlign: 'left' }}>
+                              Стоимость
+                              курса:
+                           </div>
+                        </div>
+                        <div>
+                           <Button fullWidth onClick={handleAddToCart} variant='contained' style={{ color: '#fff', backgroundColor: '#8741A2' }}>
+                              В корзину
+                           </Button>
+                        </div>
+                     </Col>
+                     <Col style={{ marginTop: 90 }}>
+                        <div style={{ textAlign: 'center', color: '#fff', fontWeight: 100 }}>
+                           Доступ к курсу навсегда в вашем личном кабинете
+                        </div>
+                        <div style={{ textAlign: 'center' }} className={classes.titlePrice}>
+                           {props.price}$
+                        </div>
+                        <div style={{ textAlign: 'center' }} className={classes.titleDecoretedText}>
+                           ПОЛНЫЙ КУРС
+                        </div>
+                     </Col>
+                     <Col style={{ marginTop: 90 }}>
+                        <div style={{ textAlign: 'center' }}>
+                           <img src={global} alt="" />
+                        </div>
+
+                     </Col>
+                  </Row>
+
+
 
 
 
@@ -721,9 +816,19 @@ const RestoreBrokenCourse: FC = () => {
             <FeedBackSection color="#2C003C" comments={comments} />
             <Footer />
          </div >
+         <Snackbar style={{ marginTop: 100 }} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={open} autoHideDuration={12000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+               Курс <b>  {props.title} </b> был успешно добавлен в <b> Корзину </b>
+            </Alert>
+         </Snackbar>
+         <Snackbar style={{ marginTop: 100 }} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={openError} autoHideDuration={12000} onClose={handleCloseError}>
+            <Alert onClose={handleCloseError} severity="error" sx={{ width: '100%' }}>
+               Произошла <b>ошибка</b>
+            </Alert>
+         </Snackbar>
 
       </motion.div >
    );
 };
 
-export default observer(RestoreBrokenCourse);
+export default observer(MethodsOfArtTherapy);

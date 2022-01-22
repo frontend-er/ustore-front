@@ -4,7 +4,7 @@ export interface IBasketCourse {
    courseId: number;
    id?: number;
    productTitle: string;
-   productDescription: string;
+   productDescription?: string;
    unit: string;
 
 }

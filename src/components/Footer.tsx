@@ -221,11 +221,9 @@ function Footer() {
    const dudUrl = '#'
 
    return (
-      <div>
-
+      <div style={{ marginTop: -13 }}>
          <Hidden mdDown>
             <div className={classes.background}>
-
                <Container fluid="xxl" className={classes.holder}>
                   <Row className={classes.footerTopLine}>
                      <Col md={4} lg={4} xl={4}>

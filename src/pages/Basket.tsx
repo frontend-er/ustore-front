@@ -2,7 +2,7 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '..';
-import { AppBar, makeStyles, Tab, Tabs, Typography, Button } from '@material-ui/core';
+import { AppBar, makeStyles, Tab, Tabs, Typography, Button, TextField, FormGroup, FormControlLabel } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 import { motion } from 'framer-motion';
 import Page404 from './ErrorPaged/Page404';
@@ -15,6 +15,9 @@ import { IBasket } from '../models/response/IBasket';
 import CartEmpty from '../assets/CartEmpty/EmptyCart.png'
 import close from '../assets/CartEmpty/close.png'
 import { useHistory } from 'react-router';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
 
 
 
@@ -77,6 +80,82 @@ const useStyles = makeStyles(theme => ({
       fontSize: 18,
       lineHeight: 2.5
 
+   },
+
+   orderWrapper: {
+      marginTop: 40,
+      background: '#141311',
+      borderRadius: 10,
+      marginBottom: 40
+   },
+
+   topTitle: {
+      borderBottom: '1px solid #fff',
+      textAlign: 'center',
+      fontWeight: 900,
+      color: '#fff',
+      fontSize: 24,
+      lineHeight: 3,
+
+   },
+
+
+   textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+      maxWidth: 340,
+      margin: 14,
+      paddingBottom: 12,
+      borderColor: '#fff'
+
+
+   },
+
+
+   cssLabel: {
+      color: '#B1B1B1',
+      fontSize: 18,
+   },
+
+   cssOutlinedInput: {
+      borderRadius: 10,
+      color: '#B1B1B1',
+      '&$cssFocused $notchedOutline': {
+         borderColor: `${theme.palette.primary.main} !important`,
+      }
+   },
+   notchedOutline: {
+      borderWidth: '1px',
+      borderColor: '#B1B1B1 !important'
+   },
+
+   paymentWrapper: {
+      textAlign: 'left',
+      margin: 30
+   },
+
+   paymentTitle: {
+      fontWeight: 900,
+      color: '#fff',
+      fontSize: 24,
+      lineHeight: 3,
+      marginLeft: 10
+   },
+
+   countPriceWrapper: {
+      textAlign: 'right'
+   },
+
+   countTitle: {
+      fontWeight: 900,
+      color: '#000',
+      fontSize: 24,
+   },
+
+   countNumber: {
+      fontWeight: 300,
+      color: '#000',
+      fontSize: 24,
    }
 
 }));
@@ -106,6 +185,15 @@ const EmptyCart = observer(() => {
 
 
 const ProductCart = observer(({ basket, handleRemove }) => {
+   const [email, setEmail] = useState<string>('')
+   const classes = useStyles()
+   const [cupon, setCupon] = useState<string>('')
+   function handleChange(event, newValue) {
+      setValue(newValue);
+   }
+
+   let totalPrice = 0
+   let discount = 0;
 
    return <div>
       <Row>
@@ -117,12 +205,12 @@ const ProductCart = observer(({ basket, handleRemove }) => {
                      <th>Unit</th>
                      <th>Price</th>
                      <th></th>
-
                   </tr>
                </thead>
                <tbody>
                   {basket &&
                      basket.map((t) => {
+                        totalPrice = totalPrice + t.poductPrice;
                         return <tr key={t.id}>
                            <td>
                               <div>
@@ -140,12 +228,159 @@ const ProductCart = observer(({ basket, handleRemove }) => {
                   }
                </tbody>
             </Table>
+            <div className={classes.countPriceWrapper}>
+               <div className={classes.countTitle}>
+                  <Row>
+                     <Col lg={8}>
+                     </Col>
+                     <Col lg={2}>
+                        Subtotal:
+                     </Col>
+                     <Col lg={2}>
+                        <span className={classes.countNumber} >${totalPrice}</span>
+                     </Col>
+                  </Row>
+               </div>
+
+
+               <div className={classes.countTitle}>
+                  <Row>
+                     <Col lg={8}>
+                     </Col>
+                     <Col lg={2}>
+                        Discaount:
+                     </Col>
+                     <Col lg={2}>
+                        <span className={classes.countNumber}>{discount}%</span>
+                     </Col>
+                  </Row>
+               </div>
+               <div className={classes.countTitle}>
+                  <Row>
+                     <Col lg={8}>
+                     </Col>
+                     <Col lg={2}>
+                        TVA:
+                     </Col>
+                     <Col lg={2}>
+                        <span className={classes.countNumber}>{discount}%</span>
+                     </Col>
+                  </Row>
+               </div>
+
+               <Row>
+                  <Col lg={8}>
+                  </Col>
+                  <Col lg={4}>
+                     <hr style={{ background: '#9ca1a5' }} />
+                  </Col>
+               </Row>
+               <div className={classes.countTitle}>
+                  <Row>
+                     <Col lg={8}>
+                     </Col>
+                     <Col lg={2}>
+                        Total:
+                     </Col>
+                     <Col lg={2}>
+                        <span className={classes.countNumber}>${totalPrice}</span>
+                     </Col>
+                  </Row>
+               </div>
+            </div>
          </Col>
          <Col xs={4}>
-            Checkout
+            <div className={classes.orderWrapper}>
+               <div className={classes.topTitle}>
+                  Order Summary
+               </div>
+               <div className={classes.paymentWrapper}>
+                  <div >
+                     <TextField
+                        label=""
+                        placeholder="Email"
+                        InputLabelProps={{
+                           classes: {
+                              root: classes.cssLabel,
+                              focused: classes.cssFocused,
+                           },
+                        }}
+                        InputProps={{
+                           classes: {
+                              root: classes.cssOutlinedInput,
+                              focused: classes.cssFocused,
+                              notchedOutline: classes.notchedOutline,
+                           },
+                           inputMode: "numeric"
+                        }}
+                        className={classes.textField}
+                        variant="outlined"
+                        onChange={e => setEmail(e.target.value)}
+                        value={email}
+                        type="text"
+
+                        fullWidth
+                     />
+                  </div>
+                  <div style={{ marginTop: -20 }}>
+                     <TextField
+                        label=""
+                        placeholder="Cupon"
+                        InputLabelProps={{
+                           classes: {
+                              root: classes.cssLabel,
+                              focused: classes.cssFocused,
+                           },
+                        }}
+                        InputProps={{
+                           classes: {
+                              root: classes.cssOutlinedInput,
+                              focused: classes.cssFocused,
+                              notchedOutline: classes.notchedOutline,
+                           },
+                           inputMode: "numeric"
+                        }}
+                        className={classes.textField}
+                        variant="outlined"
+                        onChange={e => setCupon(e.target.value)}
+                        value={cupon}
+                        type="text"
+                        fullWidth
+                     />
+                  </div>
+               </div>
+
+               <div className={classes.paymentWrapper}>
+                  <div className={classes.paymentTitle} style={{ marginTop: -30 }}>
+                     Payment method:
+                  </div>
+                  <div style={{ marginLeft: 12 }}>
+                     <FormGroup>
+                        <FormControlLabel style={{ color: '#fff' }} control={<Checkbox style={{ color: '#fff' }} label="Label" icon={<FavoriteBorder />} checkedIcon={<Favorite />} defaultChecked />} label="Credit cart (Visa, Mastercard), Apple Pay, Google Pay" />
+                        <FormControlLabel style={{ color: '#fff' }} control={<Checkbox style={{ color: '#fff' }} label="Label" icon={<FavoriteBorder />} checkedIcon={<Favorite />} />} label="QIWI | Яндекс Деньги" />
+                        <FormControlLabel style={{ color: '#fff' }} control={<Checkbox style={{ color: '#fff' }} label="Label" icon={<FavoriteBorder />} checkedIcon={<Favorite />} />} label="PayPal" />
+                     </FormGroup>
+                  </div>
+               </div>
+
+               <div className={classes.paymentWrapper} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div className={classes.paymentTitle} style={{ marginTop: -30 }}>
+                     Total:
+                  </div>
+                  <div className={classes.paymentTitle} style={{ marginTop: -30 }}>
+                     ${totalPrice}
+                  </div>
+               </div>
+               <div style={{ marginTop: -30, marginLeft: 40, marginRight: 30, paddingBottom: 40 }}>
+                  <Button variant="contained" fullWidth color="primary"  >
+                     Checkout
+                  </Button>
+               </div>
+
+            </div>
          </Col>
       </Row>
-   </div>
+   </div >
 })
 
 

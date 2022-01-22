@@ -211,7 +211,17 @@ const useStyles = makeStyles(theme => ({
 
    },
 
+   buttonLogout: {
+      marginTop: 15,
+      fontSize: 13,
+      margin: 1,
+      padding: 12,
 
+      '&:hover': {
+         color: "#fff",
+         textDecoration: 'none'
+      }
+   },
 }));
 
 
@@ -235,7 +245,7 @@ function HeaderCabinet() {
 
 
    return (
-      <Container fluid="xxl" className={classes.root}  >
+      <Container className={classes.root}  >
          <Row >
 
             <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1} className={classes.holderLogo}>
@@ -362,28 +372,25 @@ function HeaderCabinet() {
 
             <Hidden smDown>
                <Col sm={8} md={8} lg={9} xl={8} xxl={8} className={classes.links}>
-                  <Link href={dudUrl} className={classes.link}>
+                  <Link component={RouterLink} to="/about" className={classes.link}>
                      О нас
                   </Link>
-                  <Link href={dudUrl} className={classes.link}>
-                     Лекторы
-                  </Link>
-                  <Link href={dudUrl} className={classes.link}>
+                  <Link component={RouterLink} to="/kids" className={classes.link}>
                      Kids
                   </Link>
-                  <Link href={dudUrl} className={classes.link}>
+                  <Link component={RouterLink} to="/teens" className={classes.link}>
                      Teens
                   </Link>
-                  <Link href={dudUrl} className={classes.link}>
+                  <Link component={RouterLink} to="/youth" className={classes.link}>
                      Youth
                   </Link>
-                  <Link href={dudUrl} className={classes.link}>
+                  <Link component={RouterLink} to="/show" className={classes.link}>
                      Show
                   </Link>
-                  <Link href={dudUrl} className={classes.link}>
+                  <Link component={RouterLink} to="/therapy" className={classes.link}>
                      Art-Therapy
                   </Link>
-                  <Link href={dudUrl} className={classes.link}>
+                  <Link component={RouterLink} to="/event" className={classes.link}>
                      Event-Lab
                   </Link>
                </Col>
@@ -408,12 +415,9 @@ function HeaderCabinet() {
                               Войти
                            </Button>
                         </div> : <div>
-                           <Button variant="text" color="default" className={classes.buttonLogin} component={RouterLink} to="/" onClick={() => user.logout()}>
-
+                           <Button variant="contained" color="primary" className={classes.buttonLogout} component={RouterLink} to="/" onClick={() => user.logout()}>
                               <Hidden mdDown>
-                                 <div >
-                                    Выйти
-                                 </div>
+                                 Выйти
                               </Hidden>
 
                               <Hidden lgUp>

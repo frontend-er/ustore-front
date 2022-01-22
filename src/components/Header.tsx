@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 
-import React, { useContext, useState, Component, Fragment } from 'react';
+import React, { useContext, useState, Component, Fragment, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Context } from '..';
 import { Button, Hidden, Link, makeStyles, Modal, Typography } from '@material-ui/core';
@@ -166,6 +166,17 @@ const useStyles = makeStyles(theme => ({
       }
    },
 
+   buttonLogout: {
+      marginTop: 15,
+      fontSize: 13,
+      margin: 1,
+      padding: 12,
+
+      '&:hover': {
+         color: "#fff",
+         textDecoration: 'none'
+      }
+   },
    holderLinks: {
       height: '100vh',
       backgroundColor: '#fff',
@@ -222,8 +233,8 @@ const useStyles = makeStyles(theme => ({
 
 
 function Header() {
-   const { user } = useContext(Context);
    const classes = useStyles()
+   const { user } = useContext(Context);
 
    const [modalOpen, setModalOpen] = useState(false)
    const handleOpen = () => {
@@ -234,6 +245,7 @@ function Header() {
    const handleClose = () => {
       setModalOpen(false)
    };
+
 
 
    return (
@@ -364,28 +376,25 @@ function Header() {
 
                <Hidden smDown>
                   <Col sm={8} md={8} lg={8} xl={7} xxl={7} className={classes.links}>
-                     <Link href={dudUrl} className={classes.link}>
+                     <Link component={RouterLink} to="/about" className={classes.link}>
                         О нас
                      </Link>
-                     <Link href={dudUrl} className={classes.link}>
-                        Лекторы
-                     </Link>
-                     <Link href={dudUrl} className={classes.link}>
+                     <Link component={RouterLink} to="/kids" className={classes.link}>
                         Kids
                      </Link>
-                     <Link href={dudUrl} className={classes.link}>
+                     <Link component={RouterLink} to="/teens" className={classes.link}>
                         Teens
                      </Link>
-                     <Link href={dudUrl} className={classes.link}>
+                     <Link component={RouterLink} to="/youth" className={classes.link}>
                         Youth
                      </Link>
-                     <Link href={dudUrl} className={classes.link}>
+                     <Link component={RouterLink} to="/show" className={classes.link}>
                         Show
                      </Link>
-                     <Link href={dudUrl} className={classes.link}>
+                     <Link component={RouterLink} to="/therapy" className={classes.link}>
                         Art-Therapy
                      </Link>
-                     <Link href={dudUrl} className={classes.link}>
+                     <Link component={RouterLink} to="/event" className={classes.link}>
                         Event-Lab
                      </Link>
                   </Col>
@@ -431,16 +440,18 @@ function Header() {
                                     </div>
                                  </Hidden>
                               </Button>
-                              <Button variant="text" color="default" className={classes.buttonLogin} component={RouterLink} to="/" onClick={() => user.logout()}>
+                              <Button variant="contained" color="primary" className={classes.buttonLogout} component={RouterLink} to="/" onClick={() => user.logout()}>
                                  <Hidden mdDown>
                                     Выйти
                                  </Hidden>
+
                                  <Hidden lgUp>
                                     <div>
                                        <FontAwesomeIcon icon={faSignOutAlt} className={classes.callIconMini} />
                                     </div>
                                  </Hidden>
                               </Button>
+
                            </div>
                         }
                      </div>
