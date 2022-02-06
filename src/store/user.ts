@@ -10,6 +10,7 @@ export default class User {
    user = {} as IUser;
    isAuth = false;
    isLoading = false;
+   isAdmin = false;
 
    constructor() {
       makeAutoObservable(this);
@@ -17,6 +18,10 @@ export default class User {
 
    setAuth(bool: boolean) {
       this.isAuth = bool;
+   }
+
+   setAdmin(bool: boolean) {
+      this.isAdmin = bool;
    }
 
    setUser(user: IUser) {
@@ -34,10 +39,12 @@ export default class User {
    async login(email: string, password: string) {
       try {
          const response = await AuthService.login(email, password);
-         console.log(response)
          localStorage.setItem('token', response.data.accessToken);
          this.setAuth(true);
          this.setUser(response.data.user);
+         if(response.data.user.role == "ADMIN") {
+            this.setAdmin(true)
+         }
       } catch (error) {
          let errorMessage = "Failed to do something exceptional";
          if (error instanceof Error) {
@@ -50,7 +57,6 @@ export default class User {
    async registration(email: string, password: string) {
       try {
          const response = await AuthService.regestration(email, password);
-         console.log(response)
          localStorage.setItem('token', response.data.accessToken);
          this.setAuth(true);
          this.setUser(response.data.user);
@@ -82,10 +88,12 @@ export default class User {
       this.setLoading(true);
       try {
          const response = await axios.get<AuthResponse>(`${API_URL}/user/refresh`, { withCredentials: true })
-         console.log(response);
          localStorage.setItem('token', response.data.accessToken);
          this.setAuth(true);
          this.setUser(response.data.user);
+         if(response.data.user.role == "ADMIN") {
+            this.setAdmin(true)
+         }
       } catch (error) {
 
          let errorMessage = "Failed to do something exceptional";

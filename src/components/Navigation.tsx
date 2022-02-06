@@ -218,8 +218,6 @@ function Navigation() {
    const classes = useStyles()
    const { user } = useContext(Context);
 
-   console.log(user.isAuth)
-
    const dudUrl = '#'
 
    return (

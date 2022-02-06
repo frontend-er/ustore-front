@@ -12,38 +12,52 @@ import {
 } from "react-router-dom";
 import Course from './store/course';
 import CourseBasket from './store/courseBasket';
-
-
-
+import CreateSection from "./store/createSection";
+import CreateLector from "./store/createLector";
+import CreateCourse from "./store/createCurse";
 
 const user = new User();
 const course = new Course();
 const courseBasket = new CourseBasket();
-
+const createSection = new CreateSection();
+const createLector = new CreateLector();
+const createCourse = new CreateCourse();
 
 interface IContext {
-  user: User,
-  course: Course,
-  courseBasket: CourseBasket
+  user: User;
+  course: Course;
+  courseBasket: CourseBasket;
+  createSection: CreateSection;
+  createLector: CreateLector;
+  createCourse: CreateCourse;
 }
 
-
-export const Context = createContext<IContext>({ user, course, courseBasket })
-
-
+export const Context = createContext<IContext>({
+  user,
+  course,
+  courseBasket,
+  createSection,
+  createLector,
+  createCourse,
+});
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <Context.Provider value={{
-      user, course, courseBasket
-    }}>
+    <Context.Provider
+      value={{
+        user,
+        course,
+        courseBasket,
+        createSection,
+        createLector,
+        createCourse,
+      }}
+    >
       <Router>
         <App />
       </Router>
-
     </Context.Provider>
-  </ThemeProvider>
-  ,
-  document.getElementById('root')
+  </ThemeProvider>,
+  document.getElementById("root")
 );
 

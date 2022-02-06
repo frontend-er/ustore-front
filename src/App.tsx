@@ -23,27 +23,24 @@ import Show from './pages/Show';
 import Event from './pages/Event';
 import Youth from './pages/Youth';
 import MethodsOfArtTherapy from './pages/MethodsOfArtTherapy';
-
+import AdminPanel from "./pages/AdminPanel";
 
 const App: FC = () => {
-
   const location = useLocation();
   const { user, courseBasket } = useContext(Context);
 
-
-
   useEffect(() => {
     user.checkAuth();
-  }, [])
-
-
-
+  }, []);
 
   return (
     <AnimatePresence exitBeforeEnter>
       <Switch location={location} key={location.pathname}>
         <Route path="/about">
           <AboutProject />
+        </Route>
+        <Route path="/about">
+          <Home />
         </Route>
         <Route path="/kids">
           <Kids />
@@ -69,11 +66,23 @@ const App: FC = () => {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/course/3">
-          <MethodsOfArtTherapy id={3} title='“Методы Арт-терапии”' label="Urban PAS" price={100} description="Возможность самому соприкоснуться с арт-инструментом, попробовав на себе его эффективность и безопасность." />
+        <Route path="/course/1">
+          <MethodsOfArtTherapy
+            id={1}
+            title="“Методы Арт-терапии”"
+            label="Urban PAS"
+            price={100}
+            description="Возможность самому соприкоснуться с арт-инструментом, попробовав на себе его эффективность и безопасность."
+          />
         </Route>
         <Route path="/course/8">
-          <PrepareToSuccess id={8} title='“Подготовка к успеху”' label="Urban Youth" price={100} description="Курс, призванный помочь сформировать здоровое поколение молодых лидеров, которые берут на себя ответственность за собственное будущее и будущее своей страны. " />
+          <PrepareToSuccess
+            id={8}
+            title="“Подготовка к успеху”"
+            label="Urban Youth"
+            price={100}
+            description="Курс, призванный помочь сформировать здоровое поколение молодых лидеров, которые берут на себя ответственность за собственное будущее и будущее своей страны. "
+          />
         </Route>
         <Route path="/course/12">
           <KidsLections />
@@ -86,6 +95,9 @@ const App: FC = () => {
         </Route>
         <Route path="/basket">
           <Basket />
+        </Route>
+        <Route path="/admin">
+          <AdminPanel />
         </Route>
       </Switch>
     </AnimatePresence>

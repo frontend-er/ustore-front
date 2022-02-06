@@ -417,19 +417,16 @@ const BasketHolder = observer(() => {
 
    const handleRemove = async (id) => {
       try {
-         console.log(id)
-         await courseBasket.emptyBasket(id);
-         const idUser = await user.getUserId()
-         if (idUser) {
-            await courseBasket.getBasket(idUser)
-         }
-         const candidate = courseBasket.getBasketActual()
-         setBasket(candidate);
-         console.log(candidate);
-         console.log(basket);
-         forceUpdate()
+        await courseBasket.emptyBasket(id);
+        const idUser = await user.getUserId();
+        if (idUser) {
+          await courseBasket.getBasket(idUser);
+        }
+        const candidate = courseBasket.getBasketActual();
+        setBasket(candidate);
+        forceUpdate();
       } catch (error) {
-         console.log(error)
+        console.log(error);
       }
    }
 

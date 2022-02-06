@@ -21,164 +21,129 @@ import presentation from '../assets/Home/presentation.png';
 import dialog1 from '../assets/Home/dialog1.png';
 import dialog2 from '../assets/Home/dialog2.png';
 import dialog3 from '../assets/Home/dialog3.png';
+import DirectionsPack from '../components/MainPage/DirectionsPack';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    fontFamily: 'Roboto Slab',
+    backgroundColor: '#F5F5F5',
+    overflow: 'hidden'
+  },
 
+  atitudeContainer: {
+    backgroundImage: `url(${blackBg})`,
+    backgroundRepeat: 'no-repeat, repeat',
+    marginTop: 120
+  },
 
+  atitudeHolder: {
+    minHeight: '400px',
+    textAlign: 'center'
+  },
 
-const useStyles = makeStyles(theme => ({
-   root: {
-      fontFamily: 'Roboto Slab',
-      backgroundColor: '#F5F5F5',
-      overflow: 'hidden'
+  atittudeTitle: {
+    color: '#FFF',
+    margin: 10,
+    fontWeight: 900,
+    fontSize: 24,
+    textAlign: 'center'
+  },
 
-   },
-
-
-   atitudeContainer: {
-      backgroundImage: `url(${blackBg})`,
-      backgroundRepeat: 'no-repeat, repeat',
-      marginTop: 120
-   },
-
-   atitudeHolder: {
-      minHeight: '400px',
-      textAlign: 'center'
-
-   },
-
-   atittudeTitle: {
-      color: '#FFF',
-      margin: 10,
-      fontWeight: 900,
-      fontSize: 24,
-      textAlign: 'center'
-   },
-
-   atittudeSubTitle: {
-      color: '#FFF',
-      margin: 10,
-      fontWeight: 400,
-      fontSize: 12,
-      textAlign: 'center'
-
-   },
-
+  atittudeSubTitle: {
+    color: '#FFF',
+    margin: 10,
+    fontWeight: 400,
+    fontSize: 12,
+    textAlign: 'center'
+  }
 }));
 
-
-
 const Home = observer(() => {
-   const classes = useStyles()
-   const { user, courseBasket } = useContext(Context);
-   const [userId, setUserId] = useState(0);
-   const [basket, setBasket] = useState([]);
+  const classes = useStyles();
+  const { user, courseBasket } = useContext(Context);
+  const [userId, setUserId] = useState(0);
+  const [basket, setBasket] = useState([]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-   useEffect(() => {
-      window.scrollTo(0, 0);
-   }, []);
+  useEffect(() => {
+    setUserId(user.getUserId());
+    const candidate = courseBasket.getBasket(userId?.id);
+    setBasket(candidate);
+  }, [user]);
 
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      <div className={classes.root}>
+        <Header />
+        <MainView />
+        <AllDirections />
+        <DirectionsPack />
+        <Offline />
+        <div className={classes.atitudeContainer}>
+          <Container style={{ paddingTop: 70 }}>
+            <Row style={{ justifyContent: 'center' }}>
+              <Col>
+                <div className={classes.atitudeHolder}>
+                  <img src={Lector} alt="art" />
+                  <div className={classes.atittudeTitle}>Дипломированные специалисты</div>
+                  <div className={classes.atittudeSubTitle}>
+                    <span className={classes.decoratrionTitle}>В нашей команде </span>только профессионалы с профильным
+                    образованием.
+                  </div>
+                </div>
+              </Col>
+              <Col>
+                <div className={classes.atitudeHolder}>
+                  <img src={group} alt="art" />
 
-   useEffect(async () => {
-      setUserId(user.getUserId());
-      const candidate = await courseBasket.getBasket(userId.id)
-      console.log(candidate)
-      setBasket(candidate)
-   }, [])
-
-   console.log(basket)
-
-
-   return (
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-         <div className={classes.root}>
-            <Header />
-            <MainView />
-            <AllDirections />
-            <HotOne />
-            <Offline />
-            <div className={classes.atitudeContainer}>
-               <Container style={{ paddingTop: 70 }}>
-                  <Row style={{ justifyContent: 'center' }}>
-                     <Col >
-                        <div className={classes.atitudeHolder}>
-                           <img src={Lector} alt="art" />
-                           <div className={classes.atittudeTitle}>
-                              Дипломированные
-                              специалисты
-                           </div>
-                           <div className={classes.atittudeSubTitle}>
-                              <span className={classes.decoratrionTitle}> В нашей команде  </span>только профессионалы
-                              с профильным образованием
-                              ведущих университетов.
-                           </div>
-                        </div>
-                     </Col>
-                     <Col >
-                        <div className={classes.atitudeHolder}>
-                           <img src={group} alt="art" />
-
-                           <div className={classes.atittudeTitle}>
-                              Увлечённые люди
-                           </div>
-                           <div className={classes.atittudeSubTitle}>
-
-                              Каждый лектор влюблён в то, что делает.
-                              И готов заразить этой любовью вас.
-                           </div>
-                        </div>
-                     </Col>
-                     <Col >
-                        <div className={classes.atitudeHolder}>
-                           <img src={presentation} alt="art" />
-                           <div className={classes.atittudeTitle}>
-                              Великолепные
-                              рассказчики
-
-                           </div>
-                           <div className={classes.atittudeSubTitle}>
-                              Мы заботимся о том, чтобы
-                              каждый лектор не только разбирался в предмете,  но и умел правильно донести
-                              свою точку зрения.
-                           </div>
-                        </div>
-                     </Col>
-
-                  </Row>
-                  <Row>
-                     <Col>
-                        <Col >
-                           <div className={classes.atitudeHolder}>
-                              <Row style={{ alignItems: 'center' }}>
-                                 <Col>
-                                    <img src={dialog1} alt='' />
-                                 </Col>
-                                 <Col>
-                                    <img src={notebook} alt="art" />
-
-                                 </Col>
-                                 <Col>
-                                    <img style={{ marginBottom: 20 }} src={dialog2} alt='' />
-                                    <img src={dialog3} alt='' />
-                                 </Col>
-                              </Row>
-
-                           </div>
-                        </Col>
-                     </Col>
-                  </Row>
-
-               </Container>
-
-            </div>
-            <SliderLeader />
-            <Footer />
-         </div>
-      </motion.div >
-
-
-   );
-})
+                  <div className={classes.atittudeTitle}>Увлечённые люди</div>
+                  <div className={classes.atittudeSubTitle}>
+                    Каждый тренер влюблён в то, что делает. И готов заразить этой любовью вас.
+                  </div>
+                </div>
+              </Col>
+              <Col>
+                <div className={classes.atitudeHolder}>
+                  <img src={presentation} alt="art" />
+                  <div className={classes.atittudeTitle}>Великолепные рассказчики</div>
+                  <div className={classes.atittudeSubTitle}>
+                    Мы заботимся о том, чтобы каждый тренер не только разбирался в предмете, но и умел правильно донести
+                    свою точку зрения.
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Col>
+                  <div className={classes.atitudeHolder}>
+                    <Row style={{ alignItems: 'center' }}>
+                      <Col>
+                        <img src={dialog1} alt="" />
+                      </Col>
+                      <Col>
+                        <img src={notebook} alt="art" />
+                      </Col>
+                      <Col>
+                        <img style={{ marginBottom: 20 }} src={dialog2} alt="" />
+                        <img src={dialog3} alt="" />
+                      </Col>
+                    </Row>
+                  </div>
+                </Col>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+        <SliderLeader />
+        <Footer />
+      </div>
+    </motion.div>
+  );
+});
 
 
 export default Home;

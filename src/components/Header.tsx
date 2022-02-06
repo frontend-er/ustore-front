@@ -247,220 +247,333 @@ function Header() {
    };
 
 
-
    return (
-      <div >
-         <Container fluid className={classes.root}>
-            <Row >
-               <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1} className={classes.holderLogo}>
+     <div>
+       <Container fluid className={classes.root}>
+         <Row>
+           <Col
+             xs={1}
+             sm={1}
+             md={1}
+             lg={1}
+             xl={1}
+             xxl={1}
+             className={classes.holderLogo}
+           >
+             <Hidden smDown>
+               <div className={classes.logo}>
+                 <NavLink to="/">
+                   <img
+                     src={logo}
+                     alt="Logo"
+                     style={{ height: 54.54, width: 39.97 }}
+                   />
+                 </NavLink>
+               </div>
+               <div className={classes.logoName}>
+                 <b> urban </b> center
+               </div>
+             </Hidden>
+             <Hidden mdUp>
+               <div className={classes.burger}>
+                 <AppBurger />
+               </div>
+             </Hidden>
 
+             <Hidden mdDown>
+               <img src={devider} alt="Logo" className={classes.devider} />
+             </Hidden>
+           </Col>
 
-                  <Hidden smDown>
-                     <div className={classes.logo}>
-                        <NavLink to="/">
-                           <img src={logo} alt="Logo" style={{ height: 54.54, width: 39.97 }} />
-                        </NavLink>
-                     </div>
-                     <div className={classes.logoName}>
-                        <b> urban </b> center
-                     </div>
-                  </Hidden>
-                  <Hidden mdUp >
-                     <div className={classes.burger}>
-                        <AppBurger />
-                     </div>
-                  </Hidden>
-
-
-                  <Hidden mdDown>
-                     <img src={devider} alt="Logo" className={classes.devider} />
-                  </Hidden>
-
-               </Col>
-
-               <Hidden mdDown>
-                  <Col xl={1} xxl={1}>
-                     <Button variant="text" color="default" className={classes.bootonCall} onClick={handleOpen}>
-                        ЗАКАЗАТЬ
-                        <br /> ЗВОНОК
-                        <div>
-                           <FontAwesomeIcon icon={faPhoneAlt} className={classes.callIcon} />
-                        </div>
-                     </Button>
-                  </Col>
-               </Hidden>
-
-
-               <Modal
-                  aria-labelledby="simple-modal-title"
-                  aria-describedby="simple-modal-description"
-                  open={modalOpen}
-                  onClose={handleClose}
+           <Hidden mdDown>
+             <Col xl={1} xxl={1}>
+               <Button
+                 variant="text"
+                 color="default"
+                 className={classes.bootonCall}
+                 onClick={handleOpen}
                >
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                 ЗАКАЗАТЬ
+                 <br /> ЗВОНОК
+                 <div>
+                   <FontAwesomeIcon
+                     icon={faPhoneAlt}
+                     className={classes.callIcon}
+                   />
+                 </div>
+               </Button>
+             </Col>
+           </Hidden>
 
-                     <div className={classes.modalWindow}>
+           <Modal
+             aria-labelledby="simple-modal-title"
+             aria-describedby="simple-modal-description"
+             open={modalOpen}
+             onClose={handleClose}
+           >
+             <motion.div
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0 }}
+             >
+               <div className={classes.modalWindow}>
+                 <Typography
+                   variant="h6"
+                   id="modal-title"
+                   className={classes.modalTitle}
+                 >
+                   Text in a modal
+                 </Typography>
+                 <Typography
+                   variant="subtitle1"
+                   id="simple-modal-description"
+                   className={classes.modalSubtitle}
+                 >
+                   Duis mollis, est non commodo luctus, nisi erat porttitor
+                   ligula.
+                 </Typography>
 
-                        <Typography variant="h6" id="modal-title" className={classes.modalTitle}>
-                           Text in a modal
-                        </Typography>
-                        <Typography variant="subtitle1" id="simple-modal-description" className={classes.modalSubtitle}>
-                           Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                        </Typography>
+                 <Paper component="form" className={classes.rootModal}>
+                   <IconButton
+                     className={classes.iconButtonModal}
+                     aria-label="menu"
+                   >
+                     <FontAwesomeIcon
+                       icon={faHome}
+                       className={classes.callIconMini}
+                     />
+                   </IconButton>
+                   <InputBase
+                     className={classes.inputModal}
+                     placeholder="Enter your email"
+                     inputProps={{ "aria-label": "search google maps" }}
+                   />
 
+                   <Divider
+                     className={classes.dividerModal}
+                     orientation="vertical"
+                   />
+                   <IconButton
+                     color="primary"
+                     className={classes.iconButton}
+                     aria-label="directions"
+                   ></IconButton>
+                 </Paper>
 
-                        <Paper component="form" className={classes.rootModal}>
-                           <IconButton className={classes.iconButtonModal} aria-label="menu">
-                              <FontAwesomeIcon icon={faHome} className={classes.callIconMini} />
+                 <Paper component="form" className={classes.rootModal}>
+                   <IconButton
+                     className={classes.iconButtonModal}
+                     aria-label="menu"
+                   >
+                     <FontAwesomeIcon
+                       icon={faHome}
+                       className={classes.callIconMini}
+                     />
+                   </IconButton>
+                   <InputBase
+                     className={classes.inputModal}
+                     placeholder="Enter your phone number"
+                     inputProps={{ "aria-label": "search google maps" }}
+                   />
 
-                           </IconButton>
-                           <InputBase
-                              className={classes.inputModal}
-                              placeholder="Enter your email"
-                              inputProps={{ 'aria-label': 'search google maps' }}
+                   <Divider
+                     className={classes.dividerModal}
+                     orientation="vertical"
+                   />
+                   <IconButton
+                     color="primary"
+                     className={classes.iconButton}
+                     aria-label="directions"
+                   ></IconButton>
+                 </Paper>
+                 <Paper component="form" className={classes.rootModal}>
+                   <IconButton
+                     className={classes.iconButtonModal}
+                     aria-label="menu"
+                   >
+                     <FontAwesomeIcon
+                       icon={faHome}
+                       className={classes.callIconMini}
+                     />
+                   </IconButton>
+                   <InputBase
+                     className={classes.inputModal}
+                     placeholder="Enter your question"
+                     inputProps={{ "aria-label": "search google maps" }}
+                     multiline
+                     rows={4}
+                     maxRows={4}
+                   />
+
+                   <Divider
+                     className={classes.dividerModal}
+                     orientation="vertical"
+                   />
+                   <IconButton
+                     color="primary"
+                     className={classes.iconButton}
+                     aria-label="directions"
+                   ></IconButton>
+                 </Paper>
+                 <div className={classes.modalTitle}>
+                   <Button
+                     variant="contained"
+                     color="default"
+                     className={classes.buttonLogin}
+                     style={{ marginBottom: 10, marginRigth: 10 }}
+                   >
+                     Заказать звонок
+                   </Button>
+                   <Button
+                     variant="contained"
+                     color="default"
+                     className={classes.buttonLogin}
+                     style={{ marginBottom: 10 }}
+                   >
+                     Написать о возникшей проблеме
+                   </Button>
+                 </div>
+               </div>
+             </motion.div>
+           </Modal>
+
+           <Hidden smDown>
+             <Col sm={8} md={8} lg={8} xl={7} xxl={7} className={classes.links}>
+               <Link component={RouterLink} to="/" className={classes.link}>
+                 Главная
+               </Link>
+               <Link
+                 component={RouterLink}
+                 to="/event"
+                 className={classes.link}
+               >
+                 Event
+               </Link>
+               <Link component={RouterLink} to="/show" className={classes.link}>
+                 Show
+               </Link>
+               <Link component={RouterLink} to="/kids" className={classes.link}>
+                 Kids
+               </Link>
+               <Link
+                 component={RouterLink}
+                 to="/teens"
+                 className={classes.link}
+               >
+                 Teens
+               </Link>
+               {/*  <Link
+                 component={RouterLink}
+                 to="/youth"
+                 className={classes.link}
+               >
+                 Youth
+               </Link> */}
+
+               <Link
+                 component={RouterLink}
+                 to="/therapy"
+                 className={classes.link}
+               >
+                 Art-Therapy
+               </Link>
+             </Col>
+           </Hidden>
+           <Hidden mdUp>
+             <Col
+               xs={11}
+               sm={11}
+               md={10}
+               lg={9}
+               xl={8}
+               xxl={8}
+               className={classes.links}
+             >
+               <div className={classes.logoNameHead}>
+                 <b> urban </b> center
+               </div>
+             </Col>
+           </Hidden>
+
+           <Hidden smDown>
+             <Col sm={1} md={3} lg={3} xl={3} xxl={3}>
+               <div>
+                 {!user.isAuth ? (
+                   <div>
+                     <Button
+                       component={RouterLink}
+                       variant="text"
+                       color="default"
+                       className={classes.buttonLogin}
+                       to="/login"
+                     >
+                       Войти
+                     </Button>
+                   </div>
+                 ) : (
+                   <div>
+                     <Button
+                       variant="text"
+                       color="default"
+                       className={classes.buttonLogin}
+                       component={RouterLink}
+                       to="/basket"
+                     >
+                       <Hidden mdDown>Корзина</Hidden>
+                       <Hidden lgUp>
+                         <div>
+                           <FontAwesomeIcon
+                             icon={faCartPlus}
+                             className={classes.callIconMini}
                            />
+                         </div>
+                       </Hidden>
+                     </Button>
+                     <Button
+                       variant="text"
+                       color="default"
+                       className={classes.buttonLogin}
+                       component={RouterLink}
+                       to="/cabinet"
+                     >
+                       <Hidden mdDown>В кабинет</Hidden>
 
-                           <Divider className={classes.dividerModal} orientation="vertical" />
-                           <IconButton color="primary" className={classes.iconButton} aria-label="directions">
-                           </IconButton>
-                        </Paper>
-
-                        <Paper component="form" className={classes.rootModal}>
-                           <IconButton className={classes.iconButtonModal} aria-label="menu">
-                              <FontAwesomeIcon icon={faHome} className={classes.callIconMini} />
-
-                           </IconButton>
-                           <InputBase
-                              className={classes.inputModal}
-                              placeholder="Enter your phone number"
-                              inputProps={{ 'aria-label': 'search google maps' }}
+                       <Hidden lgUp>
+                         <div>
+                           <FontAwesomeIcon
+                             icon={faHome}
+                             className={classes.callIconMini}
                            />
+                         </div>
+                       </Hidden>
+                     </Button>
+                     <Button
+                       variant="contained"
+                       color="primary"
+                       className={classes.buttonLogout}
+                       component={RouterLink}
+                       to="/"
+                       onClick={() => user.logout()}
+                     >
+                       <Hidden mdDown>Выйти</Hidden>
 
-                           <Divider className={classes.dividerModal} orientation="vertical" />
-                           <IconButton color="primary" className={classes.iconButton} aria-label="directions">
-                           </IconButton>
-                        </Paper>
-                        <Paper component="form" className={classes.rootModal}>
-                           <IconButton className={classes.iconButtonModal} aria-label="menu">
-                              <FontAwesomeIcon icon={faHome} className={classes.callIconMini} />
-
-                           </IconButton>
-                           <InputBase
-                              className={classes.inputModal}
-                              placeholder="Enter your question"
-                              inputProps={{ 'aria-label': 'search google maps' }}
-                              multiline
-                              rows={4}
-                              maxRows={4}
+                       <Hidden lgUp>
+                         <div>
+                           <FontAwesomeIcon
+                             icon={faSignOutAlt}
+                             className={classes.callIconMini}
                            />
-
-
-                           <Divider className={classes.dividerModal} orientation="vertical" />
-                           <IconButton color="primary" className={classes.iconButton} aria-label="directions">
-                           </IconButton>
-                        </Paper>
-                        <div className={classes.modalTitle}>
-                           <Button variant="contained" color="default" className={classes.buttonLogin} style={{ marginBottom: 10, marginRigth: 10 }}>
-                              Заказать звонок
-
-                           </Button>
-                           <Button variant="contained" color="default" className={classes.buttonLogin} style={{ marginBottom: 10 }}>
-                              Написать о возникшей проблеме
-                           </Button>
-                        </div>
-
-                     </div>
-                  </motion.div>
-
-               </Modal>
-
-               <Hidden smDown>
-                  <Col sm={8} md={8} lg={8} xl={7} xxl={7} className={classes.links}>
-                     <Link component={RouterLink} to="/about" className={classes.link}>
-                        О нас
-                     </Link>
-                     <Link component={RouterLink} to="/kids" className={classes.link}>
-                        Kids
-                     </Link>
-                     <Link component={RouterLink} to="/teens" className={classes.link}>
-                        Teens
-                     </Link>
-                     <Link component={RouterLink} to="/youth" className={classes.link}>
-                        Youth
-                     </Link>
-                     <Link component={RouterLink} to="/show" className={classes.link}>
-                        Show
-                     </Link>
-                     <Link component={RouterLink} to="/therapy" className={classes.link}>
-                        Art-Therapy
-                     </Link>
-                     <Link component={RouterLink} to="/event" className={classes.link}>
-                        Event-Lab
-                     </Link>
-                  </Col>
-               </Hidden>
-               <Hidden mdUp >
-                  <Col xs={11} sm={11} md={10} lg={9} xl={8} xxl={8} className={classes.links}>
-
-                     <div className={classes.logoNameHead}>
-                        <b> urban </b> center
-                     </div>
-                  </Col>
-
-               </Hidden>
-
-
-               <Hidden smDown>
-                  <Col sm={1} md={3} lg={3} xl={3} xxl={3}>
-                     <div>
-                        {
-                           (!user.isAuth) ? <div>
-                              <Button component={RouterLink} variant="text" color="default" className={classes.buttonLogin} to="/login">
-                                 Войти
-                              </Button>
-                           </div> : <div>
-                              <Button variant="text" color="default" className={classes.buttonLogin} component={RouterLink} to="/basket">
-                                 <Hidden mdDown>
-                                    Корзина
-                                 </Hidden>
-                                 <Hidden lgUp>
-                                    <div>
-                                       <FontAwesomeIcon icon={faCartPlus} className={classes.callIconMini} />
-                                    </div>
-                                 </Hidden>
-                              </Button>
-                              <Button variant="text" color="default" className={classes.buttonLogin} component={RouterLink} to="/cabinet">
-                                 <Hidden mdDown>
-                                    В кабинет
-                                 </Hidden>
-
-                                 <Hidden lgUp>
-                                    <div>
-                                       <FontAwesomeIcon icon={faHome} className={classes.callIconMini} />
-                                    </div>
-                                 </Hidden>
-                              </Button>
-                              <Button variant="contained" color="primary" className={classes.buttonLogout} component={RouterLink} to="/" onClick={() => user.logout()}>
-                                 <Hidden mdDown>
-                                    Выйти
-                                 </Hidden>
-
-                                 <Hidden lgUp>
-                                    <div>
-                                       <FontAwesomeIcon icon={faSignOutAlt} className={classes.callIconMini} />
-                                    </div>
-                                 </Hidden>
-                              </Button>
-
-                           </div>
-                        }
-                     </div>
-                  </Col>
-               </Hidden>
-            </ Row>
-         </Container >
-      </div >
-
+                         </div>
+                       </Hidden>
+                     </Button>
+                   </div>
+                 )}
+               </div>
+             </Col>
+           </Hidden>
+         </Row>
+       </Container>
+     </div>
    );
 }
 

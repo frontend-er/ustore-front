@@ -405,9 +405,9 @@ const MethodsOfArtTherapy = (props: ICourse) => {
    const [open, setOpen] = React.useState(false);
    const [openError, setOpenError] = React.useState(false);
 
-   //useEffect(() => {
-   //   window.scrollTo(0, 0);
-   //}, []);
+   useEffect(() => {
+     window.scrollTo(0, 0);
+   }, []);
 
 
    const handleClick = () => {
